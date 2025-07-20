@@ -28,7 +28,7 @@ You also need the following external libraries included in the project:
 Clone the repository and build the project:
 
 ```bash
-git clone https://gitee.com/your_username/gitee-issue-creator.git
+git clone git clone https://github.com/Naarikan/gitee-issue-creator.git
 cd gitee-issue-creator
 mkdir build && cd build
 cmake ..
