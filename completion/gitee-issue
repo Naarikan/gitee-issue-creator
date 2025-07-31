@@ -1,0 +1,37 @@
+#!/bin/bash
+
+_gitee_issue_completion() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    
+    # Main options
+    opts="--help --menu --add --create --setup --delete --owner --repo --title --body --labels --token"
+    
+    # Handle different completion contexts
+    case "${prev}" in
+        --create)
+            # After --create, suggest required and optional arguments
+            COMPREPLY=( $(compgen -W "--title --body --labels --owner --repo --token" -- "${cur}") )
+            return 0
+            ;;
+        --title|--body|--labels|--owner|--repo|--token)
+            # These options expect values, so don't suggest other options
+            return 0
+            ;;
+        gitee-issue)
+            # First argument after command name
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        *)
+            # Default case - suggest all options
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+    esac
+}
+
+# Register the completion function
+complete -F _gitee_issue_completion gitee-issue 
